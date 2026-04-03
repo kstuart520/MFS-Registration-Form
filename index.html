@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MFS White Belt Championship — Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E2C06A;
+    --gold-dark: #8B6914;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --dark3: #242424;
+    --border: #2E2E2E;
+    --text: #E8E8E8;
+    --text-muted: #AAAAAA;
+    --red: #C0392B;
+    --success: #27AE60;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 40px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 10vw, 72px);
+    color: #fff;
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .header h1 span {
+    color: var(--gold);
+    display: block;
+  }
+
+  .header-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 10px;
+  }
+
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .meta-item .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  /* Pricing Banner */
+  .pricing-banner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .price-tier {
+    background: var(--dark2);
+    padding: 16px 12px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .price-tier.active {
+    background: var(--dark3);
+    outline: 1px solid var(--gold);
+    outline-offset: -1px;
+  }
+
+  .price-tier .tier-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .price-tier .tier-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .price-tier.active .tier-price {
+    color: var(--gold-light);
+  }
+
+  .price-tier .tier-dates {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  .price-tier .tier-status {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    margin-top: 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  /* Form Sections */
+  .form-section {
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.4s forwards;
+  }
+
+  .form-section:nth-child(1) { animation-delay: 0.1s; }
+  .form-section:nth-child(2) { animation-delay: 0.2s; }
+  .form-section:nth-child(3) { animation-delay: 0.3s; }
+  .form-section:nth-child(4) { animation-delay: 0.4s; }
+  .form-section:nth-child(5) { animation-delay: 0.5s; }
+  .form-section:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    width: 26px;
+    height: 26px;
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  /* Fields */
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .field-grid.single { grid-template-columns: 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field.full { grid-column: 1 / -1; }
+
+  label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #C8C8C8;
+  }
+
+  label .req {
+    color: var(--gold);
+    margin-left: 3px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  select,
+  textarea {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    padding: 11px 14px;
+    width: 100%;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    outline: none;
+  }
+
+  input[type="date"] {
+    color-scheme: dark;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--gold);
+    background: var(--dark3);
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #444;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  /* Division selector */
+  .division-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .weight-section {
+    display: none;
+  }
+
+  .weight-section.visible {
+    display: block;
+  }
+
+  /* Radio / Checkbox groups */
+  .radio-group, .check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .radio-group.horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .radio-option, .check-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    padding: 11px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 14px;
+    color: #D8D8D8;
+  }
+
+  .radio-option:hover, .check-option:hover {
+    border-color: var(--gold-dark);
+    background: var(--dark3);
+  }
+
+  .radio-option input, .check-option input {
+    width: auto;
+    accent-color: var(--gold);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .radio-option.selected, .check-option.selected {
+    border-color: var(--gold);
+    background: var(--dark3);
+  }
+
+  /* Waiver */
+  .waiver-box {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    padding: 18px;
+    max-height: 220px;
+    overflow-y: auto;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #B8B8B8;
+    margin-bottom: 14px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-dark) var(--dark);
+  }
+
+  .waiver-box h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .waiver-box p { margin-bottom: 8px; }
+
+  .waiver-sign {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  /* Payment box */
+  .payment-box {
+    background: var(--dark2);
+    border: 1px solid var(--gold-dark);
+    padding: 20px;
+  }
+
+  .payment-box p {
+    font-size: 13px;
+    color: #BBBBBB;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .payment-box .promo-note {
+    background: var(--dark3);
+    border-left: 3px solid var(--gold);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #C0C0C0;
+    margin-bottom: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  .payment-box .promo-note strong {
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  .pay-btn {
+    display: block;
+    width: 100%;
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    text-align: center;
+    padding: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .pay-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .pay-btn:active { transform: translateY(0); }
+
+  /* Submit */
+  .submit-section {
+    text-align: center;
+    padding-top: 8px;
+  }
+
+  .submit-btn {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 4px;
+    padding: 16px 48px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .submit-btn:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .submit-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  /* Info callout */
+  .info-callout {
+    background: var(--dark2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #BBBBBB;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .info-callout strong { color: var(--text); }
+
+  /* Success state */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .success-screen.show { display: block; }
+
+  .success-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .success-screen h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  /* Validation */
+  .field-error {
+    font-size: 11px;
+    color: var(--red);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.5px;
+    display: none;
+  }
+
+  .field.invalid input,
+  .field.invalid select {
+    border-color: var(--red);
+  }
+
+  .field.invalid .field-error { display: block; }
+
+  @media (max-width: 480px) {
+    .field-grid { grid-template-columns: 1fr; }
+    .field.full { grid-column: 1; }
+    .pricing-banner { grid-template-columns: 1fr; gap: 2px; }
+    .waiver-sign { grid-template-columns: 1fr; }
+    .radio-group.horizontal { flex-direction: column; }
+    .header h1 { font-size: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-badge">Official Competitor Registration</div>
+    <h1>White Belt<span>Championship</span></h1>
+    <p class="header-sub">Montaña Fighting Systems</p>
+    <div class="header-meta">
+      <span class="meta-item"><span class="dot"></span>June 6, 2026</span>
+      <span class="meta-item"><span class="dot"></span>Seguin, TX</span>
+      <span class="meta-item"><span class="dot"></span>Gi Only · 18+ · White Belt</span>
+    </div>
+  </div>
+
+  <!-- Pricing Banner -->
+  <div class="pricing-banner">
+    <div class="price-tier active">
+      <div class="tier-label">Early Bird</div>
+      <div class="tier-price">$30</div>
+      <div class="tier-dates">Now – Apr 30</div>
+      <div class="tier-status">Open Now</div>
+    </div>
+    <div class="price-tier">
+      <div class="tier-label">Regular</div>
+      <div class="tier-price">$50</div>
+      <div class="tier-dates">May 1 – May 31</div>
+    </div>
+    <div class="price-tier">
+      <div class="tier-label">Late</div>
+      <div class="tier-price">$60</div>
+      <div class="tier-dates">June 1 – June 4</div>
+    </div>
+  </div>
+
+  <form id="regForm" novalidate>
+
+    <!-- Section 1: Personal Info -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Personal Information</div>
+      </div>
+      <div class="field-grid">
+        <div class="field" id="f-firstname">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" name="firstName" placeholder="First" required>
+          <span class="field-error">Required</span>
+        </div>
+        <div class="field" id="f-lastname">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" name="lastName" placeholder="Last" required>
+          <span class="field-error">Required</span>
+        </div>
+        <div class="field" id="f-email">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="you@email.com" required>
+          <span class="field-error">Valid email required</span>
+        </div>
+        <div class="field" id="f-phone">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" name="phone" placeholder="(000) 000-0000" required>
+          <span class="field-error">Required</span>
+        </div>
+        <div class="field" id="f-dob">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" name="dob" required>
+          <span class="field-error">Must be 18+ to compete</span>
+        </div>
+        <div class="field" id="f-gym">
+          <label>Gym / Academy <span class="req">*</span></label>
+          <input type="text" name="gym" placeholder="Academy name" required>
+          <span class="field-error">Required</span>
+        </div>
+        <div class="field full" id="f-coach">
+          <label>Coach / Instructor Name</label>
+          <input type="text" name="coach" placeholder="Optional">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Division -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Competition Division</div>
+      </div>
+
+      <div class="info-callout">
+        <strong>Gi Only · White Belt · Adult 18+ and Master 1 (30+)</strong><br>
+        Select your gender to see the correct weight classes. Competitors weigh in with gi and belt on.
+      </div>
+
+      <div class="division-flow">
+
+        <!-- Gender -->
+        <div class="field" id="f-gender">
+          <label>Gender <span class="req">*</span></label>
+          <div class="radio-group horizontal" id="genderGroup">
+            <label class="radio-option" onclick="selectGender('Male', this)">
+              <input type="radio" name="gender" value="Male"> Male
+            </label>
+            <label class="radio-option" onclick="selectGender('Female', this)">
+              <input type="radio" name="gender" value="Female"> Female
+            </label>
+          </div>
+          <span class="field-error" id="gender-error">Please select a gender</span>
+        </div>
+
+        <!-- Age Division -->
+        <div class="field" id="f-age">
+          <label>Age Division <span class="req">*</span></label>
+          <div class="radio-group" id="ageGroup">
+            <label class="radio-option" onclick="selectOption(this, 'ageGroup')">
+              <input type="radio" name="ageDivision" value="Adult (18+)"> Adult (18+)
+            </label>
+            <label class="radio-option" onclick="selectOption(this, 'ageGroup')">
+              <input type="radio" name="ageDivision" value="Master 1 (30+)"> Master 1 (30+)
+            </label>
+          </div>
+          <span class="field-error" id="age-error">Please select an age division</span>
+        </div>
+
+        <!-- Male Weights -->
+        <div class="weight-section" id="maleWeights">
+          <div class="field" id="f-weight-m">
+            <label>Weight Class — Male <span class="req">*</span></label>
+            <div class="radio-group" id="maleWeightGroup">
+              <label class="radio-option" onclick="selectOption(this, 'maleWeightGroup')">
+                <input type="radio" name="weightClass" value="Rooster (≤125 lbs)"> Rooster &nbsp;<span style="color:var(--text-muted);font-size:12px">≤ 125 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'maleWeightGroup')">
+                <input type="radio" name="weightClass" value="Light Feather (126–140 lbs)"> Light Feather &nbsp;<span style="color:var(--text-muted);font-size:12px">126–140 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'maleWeightGroup')">
+                <input type="radio" name="weightClass" value="Feather (141–155 lbs)"> Feather &nbsp;<span style="color:var(--text-muted);font-size:12px">141–155 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'maleWeightGroup')">
+                <input type="radio" name="weightClass" value="Light (156–170 lbs)"> Light &nbsp;<span style="color:var(--text-muted);font-size:12px">156–170 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'maleWeightGroup')">
+                <input type="radio" name="weightClass" value="Middle (171–185 lbs)"> Middle &nbsp;<span style="color:var(--text-muted);font-size:12px">171–185 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'maleWeightGroup')">
+                <input type="radio" name="weightClass" value="Medium Heavy (186–200 lbs)"> Medium Heavy &nbsp;<span style="color:var(--text-muted);font-size:12px">186–200 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'maleWeightGroup')">
+                <input type="radio" name="weightClass" value="Heavy (201–215 lbs)"> Heavy &nbsp;<span style="color:var(--text-muted);font-size:12px">201–215 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'maleWeightGroup')">
+                <input type="radio" name="weightClass" value="Super Heavy (216+ lbs)"> Super Heavy &nbsp;<span style="color:var(--text-muted);font-size:12px">216+ lbs</span>
+              </label>
+            </div>
+            <span class="field-error" id="weight-error">Please select a weight class</span>
+          </div>
+        </div>
+
+        <!-- Female Weights -->
+        <div class="weight-section" id="femaleWeights">
+          <div class="field" id="f-weight-f">
+            <label>Weight Class — Female <span class="req">*</span></label>
+            <div class="radio-group" id="femaleWeightGroup">
+              <label class="radio-option" onclick="selectOption(this, 'femaleWeightGroup')">
+                <input type="radio" name="weightClass" value="Rooster (≤107 lbs)"> Rooster &nbsp;<span style="color:var(--text-muted);font-size:12px">≤ 107 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'femaleWeightGroup')">
+                <input type="radio" name="weightClass" value="Light Feather (108–118 lbs)"> Light Feather &nbsp;<span style="color:var(--text-muted);font-size:12px">108–118 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'femaleWeightGroup')">
+                <input type="radio" name="weightClass" value="Feather (119–129 lbs)"> Feather &nbsp;<span style="color:var(--text-muted);font-size:12px">119–129 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'femaleWeightGroup')">
+                <input type="radio" name="weightClass" value="Light (130–141 lbs)"> Light &nbsp;<span style="color:var(--text-muted);font-size:12px">130–141 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'femaleWeightGroup')">
+                <input type="radio" name="weightClass" value="Middle (142–152 lbs)"> Middle &nbsp;<span style="color:var(--text-muted);font-size:12px">142–152 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'femaleWeightGroup')">
+                <input type="radio" name="weightClass" value="Medium Heavy (153–163 lbs)"> Medium Heavy &nbsp;<span style="color:var(--text-muted);font-size:12px">153–163 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'femaleWeightGroup')">
+                <input type="radio" name="weightClass" value="Heavy (164–174 lbs)"> Heavy &nbsp;<span style="color:var(--text-muted);font-size:12px">164–174 lbs</span>
+              </label>
+              <label class="radio-option" onclick="selectOption(this, 'femaleWeightGroup')">
+                <input type="radio" name="weightClass" value="Super Heavy (175+ lbs)"> Super Heavy &nbsp;<span style="color:var(--text-muted);font-size:12px">175+ lbs</span>
+              </label>
+            </div>
+            <span class="field-error" id="weight-f-error">Please select a weight class</span>
+          </div>
+        </div>
+
+        <!-- Shirt Size -->
+        <div class="field" id="f-shirt">
+          <label>Competitor Shirt Size <span class="req">*</span></label>
+          <select name="shirtSize" required>
+            <option value="">— Select size —</option>
+            <option value="S">Small</option>
+            <option value="M">Medium</option>
+            <option value="L">Large</option>
+            <option value="XL">X-Large</option>
+            <option value="XXL">2X-Large</option>
+          </select>
+          <span class="field-error">Please select a shirt size</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 3: Payment -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Payment</div>
+      </div>
+      <div class="payment-box">
+        <p>Registration is not confirmed until payment is received. Click the button below to complete your payment through Square. After paying, return to this form and submit.</p>
+        <div class="promo-note">
+          🥋 MFS Members: use code <strong>MFS15</strong> at checkout for 15% off your registration.
+        </div>
+        <div class="field" style="margin-bottom:14px;" id="f-payconfirm">
+          <label>Payment Confirmation # <span class="req">*</span></label>
+          <input type="text" name="paymentConfirm" placeholder="Enter Square confirmation number" required>
+          <span class="field-error">Please enter your payment confirmation number</span>
+        </div>
+        <a href="#" class="pay-btn" target="_blank" id="payLink">PAY NOW — COMPLETE REGISTRATION →</a>
+        <p style="font-size:11px;text-align:center;margin-top:10px;margin-bottom:0;">Powered by Square · Secure Checkout</p>
+      </div>
+    </div>
+
+    <!-- Section 4: Liability Waiver -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">Liability Waiver & Release</div>
+      </div>
+
+      <div class="waiver-box">
+        <h4>Waiver of Liability, Release & Indemnification</h4>
+        <p>I, the undersigned participant ("Competitor"), voluntarily agree to participate in the Montaña Fighting Systems White Belt Championship ("Event") to be held on June 6, 2026, at Montaña Fighting Systems, 214 E Court St, Seguin, TX 78155.</p>
+        <p><strong>Assumption of Risk:</strong> I understand and acknowledge that Brazilian Jiu-Jitsu competition involves inherent risks including, but not limited to, physical contact, falls, joint stress, injury, and other hazards. I voluntarily assume all such risks associated with my participation.</p>
+        <p><strong>Release of Liability:</strong> In consideration of being permitted to participate in the Event, I hereby release, waive, discharge, and covenant not to sue Montaña Fighting Systems, its owners, officers, employees, volunteers, coaches, referees, and affiliates (collectively "Released Parties") from any and all claims, demands, losses, or damages arising from my participation, including those caused by the negligence of the Released Parties.</p>
+        <p><strong>Medical Authorization:</strong> I certify that I am in good physical health and am medically able to participate in Brazilian Jiu-Jitsu competition. I authorize event staff to seek emergency medical treatment on my behalf if necessary, and I accept responsibility for all associated costs.</p>
+        <p><strong>Photo & Video Consent:</strong> I grant Montaña Fighting Systems the right to photograph and/or video record my participation in the Event and to use such media for promotional, educational, or social media purposes without compensation.</p>
+        <p><strong>Rules Compliance:</strong> I agree to abide by all tournament rules, referee decisions, and sportsmanship standards. I understand that violation of rules or unsportsmanlike conduct may result in disqualification.</p>
+        <p><strong>Refund Policy:</strong> I understand that a 100% refund is available through June 1, 2026, and an 80% refund is available June 2–4, 2026. No refunds will be issued after June 4, 2026.</p>
+        <p>I have read this waiver, understand its terms, and agree to be bound by it. I am 18 years of age or older.</p>
+      </div>
+
+      <div class="waiver-sign">
+        <div class="field" id="f-waiverName">
+          <label>Full Legal Name <span class="req">*</span></label>
+          <input type="text" name="waiverName" placeholder="Type full name as signature" required>
+          <span class="field-error">Required</span>
+        </div>
+        <div class="field" id="f-waiverDate">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" name="waiverDate" required>
+          <span class="field-error">Required</span>
+        </div>
+      </div>
+
+      <div class="field" id="f-waiverCheck" style="margin-top:12px;">
+        <label class="check-option" id="waiverCheckLabel" onclick="toggleCheck(this, 'waiverCheck')">
+          <input type="checkbox" name="waiverAgreed" id="waiverCheck" required>
+          I have read, understand, and agree to the Waiver of Liability above. I confirm I am 18 years of age or older.
+        </label>
+        <span class="field-error" id="waiver-error">You must agree to the waiver to register</span>
+      </div>
+    </div>
+
+    <!-- Section 5: Final Info -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">Final Details</div>
+      </div>
+      <div class="field-grid single">
+        <div class="field">
+          <label>How did you hear about this event?</label>
+          <select name="referral">
+            <option value="">— Select one —</option>
+            <option value="MFS / My Gym">MFS / My Gym</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Coach / Instructor">Coach / Instructor</option>
+            <option value="Friend / Teammate">Friend / Teammate</option>
+            <option value="Flyer">Flyer</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Is this your first competition?</label>
+          <div class="radio-group horizontal" id="firstCompGroup">
+            <label class="radio-option" onclick="selectOption(this, 'firstCompGroup')">
+              <input type="radio" name="firstComp" value="Yes"> Yes, first time!
+            </label>
+            <label class="radio-option" onclick="selectOption(this, 'firstCompGroup')">
+              <input type="radio" name="firstComp" value="No"> No
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Questions or Notes</label>
+          <textarea name="notes" placeholder="Any questions, special requests, or notes for the organizer..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-section form-section">
+      <button type="submit" class="submit-btn">SUBMIT REGISTRATION</button>
+      <p class="submit-note">By submitting you confirm all information is accurate and you have completed payment.</p>
+    </div>
+
+  </form>
+
+  <!-- Success Screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🥋</div>
+    <h2>You're Registered!</h2>
+    <p style="color:var(--text-muted);font-size:15px;margin-top:8px;line-height:1.6;">
+      Thank you for registering for the MFS White Belt Championship.<br>
+      A confirmation will be sent to your email.<br><br>
+      <strong style="color:var(--gold)">June 6, 2026 · Doors open 9:00 AM · Seguin, TX</strong>
+    </p>
+  </div>
+
+</div>
+
+<script>
+  // Gender toggle
+  function selectGender(gender, el) {
+    document.querySelectorAll('#genderGroup .radio-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('maleWeights').classList.toggle('visible', gender === 'Male');
+    document.getElementById('femaleWeights').classList.toggle('visible', gender === 'Female');
+    // Clear opposite weight selections
+    const opp = gender === 'Male' ? 'femaleWeightGroup' : 'maleWeightGroup';
+    document.querySelectorAll('#' + opp + ' input').forEach(i => i.checked = false);
+    document.querySelectorAll('#' + opp + ' .radio-option').forEach(o => o.classList.remove('selected'));
+  }
+
+  // Generic radio group highlight
+  function selectOption(el, groupId) {
+    document.querySelectorAll('#' + groupId + ' .radio-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Checkbox toggle
+  function toggleCheck(el, checkId) {
+    const cb = document.getElementById(checkId);
+    el.classList.toggle('selected', cb.checked);
+  }
+
+  // Set today's date on waiver date field
+  window.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelector('[name="waiverDate"]').value = today;
+    // Update pay button — replace # with actual Square link
+    document.getElementById('payLink').href = 'https://square.link/u/7JJv4m74?src=sheet';
+  });
+
+  // Form validation & submit
+  document.getElementById('regForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    // Text/email/select fields
+    const required = [
+      ['f-firstname', 'firstName'],
+      ['f-lastname', 'lastName'],
+      ['f-email', 'email'],
+      ['f-phone', 'phone'],
+      ['f-dob', 'dob'],
+      ['f-gym', 'gym'],
+      ['f-shirt', 'shirtSize'],
+      ['f-payconfirm', 'paymentConfirm'],
+      ['f-waiverName', 'waiverName'],
+      ['f-waiverDate', 'waiverDate'],
+    ];
+
+    required.forEach(([fieldId, name]) => {
+      const wrap = document.getElementById(fieldId);
+      const input = document.querySelector('[name="' + name + '"]');
+      if (!input || !input.value.trim()) {
+        wrap.classList.add('invalid');
+        valid = false;
+      } else {
+        wrap.classList.remove('invalid');
+      }
+    });
+
+    // Email format
+    const emailVal = document.querySelector('[name="email"]').value;
+    if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      document.getElementById('f-email').classList.add('invalid');
+      valid = false;
+    }
+
+    // Gender
+    const genderVal = document.querySelector('[name="gender"]:checked');
+    if (!genderVal) {
+      document.getElementById('gender-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('gender-error').style.display = 'none';
+    }
+
+    // Age division
+    const ageVal = document.querySelector('[name="ageDivision"]:checked');
+    if (!ageVal) {
+      document.getElementById('age-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('age-error').style.display = 'none';
+    }
+
+    // Weight class
+    const weightVal = document.querySelector('[name="weightClass"]:checked');
+    if (!weightVal) {
+      document.getElementById('weight-error').style.display = 'block';
+      document.getElementById('weight-f-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('weight-error').style.display = 'none';
+      document.getElementById('weight-f-error').style.display = 'none';
+    }
+
+    // Waiver checkbox
+    const waiverCb = document.getElementById('waiverCheck');
+    if (!waiverCb.checked) {
+      document.getElementById('waiver-error').style.display = 'block';
+      valid = false;
+    } else {
+      document.getElementById('waiver-error').style.display = 'none';
+    }
+
+    // Age check (18+)
+    const dob = document.querySelector('[name="dob"]').value;
+    if (dob) {
+      const age = (new Date() - new Date(dob)) / (1000 * 60 * 60 * 24 * 365.25);
+      if (age < 18) {
+        document.getElementById('f-dob').classList.add('invalid');
+        valid = false;
+      }
+    }
+
+    if (!valid) {
+      document.querySelector('.field.invalid')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Collect all form data
+    const payload = {
+      firstName:       document.querySelector('[name="firstName"]').value.trim(),
+      lastName:        document.querySelector('[name="lastName"]').value.trim(),
+      email:           document.querySelector('[name="email"]').value.trim(),
+      phone:           document.querySelector('[name="phone"]').value.trim(),
+      dob:             document.querySelector('[name="dob"]').value,
+      gym:             document.querySelector('[name="gym"]').value.trim(),
+      coach:           document.querySelector('[name="coach"]').value.trim(),
+      gender:          document.querySelector('[name="gender"]:checked')?.value || '',
+      ageDivision:     document.querySelector('[name="ageDivision"]:checked')?.value || '',
+      weightClass:     document.querySelector('[name="weightClass"]:checked')?.value || '',
+      shirtSize:       document.querySelector('[name="shirtSize"]').value,
+      paymentConfirm:  document.querySelector('[name="paymentConfirm"]').value.trim(),
+      waiverName:      document.querySelector('[name="waiverName"]').value.trim(),
+      waiverDate:      document.querySelector('[name="waiverDate"]').value,
+      firstComp:       document.querySelector('[name="firstComp"]:checked')?.value || '',
+      referral:        document.querySelector('[name="referral"]').value,
+      notes:           document.querySelector('[name="notes"]').value.trim(),
+    };
+
+    // Show loading state
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.textContent = 'SUBMITTING...';
+    submitBtn.disabled = true;
+
+    // Send to Google Sheets
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuZNxGkx8UnpudP4s5sf2LI8YcfqQY0zvHQktILpdx8Aa2dxt26TLiURyGkJ1RwZKkhA/exec';
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      // no-cors means we can't read the response, but if fetch didn't throw it went through
+      document.getElementById('regForm').style.display = 'none';
+      document.querySelector('.pricing-banner').style.display = 'none';
+      document.getElementById('successScreen').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(() => {
+      submitBtn.textContent = 'SUBMIT REGISTRATION';
+      submitBtn.disabled = false;
+      alert('Something went wrong submitting your registration. Please try again or contact montanafightingsystems@gmail.com');
+    });
+  });
+</script>
+
+</body>
+</html>
