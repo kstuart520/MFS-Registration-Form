@@ -615,18 +615,18 @@
 
   <!-- Pricing Banner -->
   <div class="pricing-banner">
-    <div class="price-tier active">
+    <div class="price-tier" id="tier-early">
       <div class="tier-label">Early Bird</div>
       <div class="tier-price">$20</div>
       <div class="tier-dates">Now – Apr 30</div>
-      <div class="tier-status">Open Now</div>
+      <div class="tier-status" id="tier-early-status" style="display:none;">Open Now</div>
     </div>
-    <div class="price-tier">
+    <div class="price-tier" id="tier-regular">
       <div class="tier-label">Regular</div>
       <div class="tier-price">$25</div>
       <div class="tier-dates">May 1 – May 31</div>
     </div>
-    <div class="price-tier">
+    <div class="price-tier" id="tier-late">
       <div class="tier-label">Late</div>
       <div class="tier-price">$30</div>
       <div class="tier-dates">June 1 – June 4</div>
@@ -959,6 +959,33 @@
     // Update pay button — replace # with actual Square link
     document.getElementById('payLink').href = 'https://square.link/u/7JJv4m74?src=sheet';
   });
+
+  // Auto-highlight correct pricing tier based on today's date
+  function updateActiveTier() {
+    const today = new Date();
+    const earlyEnd  = new Date('2026-04-30T23:59:59');
+    const regularEnd = new Date('2026-05-31T23:59:59');
+    const lateEnd   = new Date('2026-06-04T23:59:59');
+
+    const earlyTier   = document.getElementById('tier-early');
+    const regularTier = document.getElementById('tier-regular');
+    const lateTier    = document.getElementById('tier-late');
+    const earlyStatus = document.getElementById('tier-early-status');
+
+    // Remove active from all
+    [earlyTier, regularTier, lateTier].forEach(t => t.classList.remove('active'));
+
+    if (today <= earlyEnd) {
+      earlyTier.classList.add('active');
+      if (earlyStatus) earlyStatus.style.display = 'inline-block';
+    } else if (today <= regularEnd) {
+      regularTier.classList.add('active');
+    } else if (today <= lateEnd) {
+      lateTier.classList.add('active');
+    }
+  }
+
+  updateActiveTier();
 
   // Form validation & submit
   document.getElementById('regForm').addEventListener('submit', function(e) {
