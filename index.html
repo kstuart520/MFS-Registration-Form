@@ -126,6 +126,33 @@
     border-radius: 50%;
   }
 
+  /* Spectator Bar */
+  .spectator-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: #111111;
+    border: 1px solid #2E2E2E;
+    border-left: 3px solid var(--gold);
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #BBBBBB;
+  }
+
+  .spectator-bar strong {
+    color: var(--gold);
+  }
+
+  .spec-divider {
+    color: #444;
+    font-size: 16px;
+  }
+
   /* Pricing Banner */
   .pricing-banner {
     display: grid;
@@ -577,6 +604,13 @@
       <span class="meta-item"><span class="dot"></span>Seguin, TX</span>
       <span class="meta-item"><span class="dot"></span>Gi Only · 18+ · White Belt</span>
     </div>
+  </div>
+
+  <!-- Spectator Info -->
+  <div class="spectator-bar">
+    <span class="spec-item">Spectator Admission: <strong>$5 at the door</strong></span>
+    <span class="spec-divider">·</span>
+    <span class="spec-item">Children 10 & under: <strong>Free</strong></span>
   </div>
 
   <!-- Pricing Banner -->
